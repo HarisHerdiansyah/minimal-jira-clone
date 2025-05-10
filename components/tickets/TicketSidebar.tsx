@@ -1,0 +1,285 @@
+"use client";
+
+import { useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  AlertCircle,
+  ArrowUp,
+  Calendar,
+  ChevronDown,
+  Clock,
+  Flag,
+  Hash,
+  User,
+  Users,
+} from "lucide-react";
+
+interface TicketSidebarProps {
+  ticket: {
+    priority: string;
+    type: string;
+    reporter: {
+      name: string;
+      email: string;
+      avatar: string;
+    };
+    assignee: {
+      name: string;
+      email: string;
+      avatar: string;
+    };
+    created: string;
+    updated: string;
+    labels: string[];
+    watchers: number;
+    epic: string;
+    sprint: string;
+    storyPoints: number;
+  };
+}
+
+export default function TicketSidebar({ ticket }: TicketSidebarProps) {
+  const [priority, setPriority] = useState(ticket.priority);
+  const [assignee, setAssignee] = useState(ticket.assignee);
+
+  const priorityIcons = {
+    Highest: <ArrowUp className="h-4 w-4 text-red-500" />,
+    High: <ArrowUp className="h-4 w-4 text-orange-500" />,
+    Medium: <ArrowUp className="h-4 w-4 text-yellow-500 rotate-90" />,
+    Low: <ArrowUp className="h-4 w-4 text-blue-500 rotate-180" />,
+    Lowest: <ArrowUp className="h-4 w-4 text-slate-500 rotate-180" />,
+  };
+
+  const priorityOptions = ["Highest", "High", "Medium", "Low", "Lowest"];
+
+  // Mock team members for assignee dropdown
+  const teamMembers = [
+    {
+      name: "John Doe",
+      email: "john.doe@example.com",
+      avatar: "/placeholder.svg?height=40&width=40",
+    },
+    {
+      name: "Jane Smith",
+      email: "jane.smith@example.com",
+      avatar: "/placeholder.svg?height=40&width=40",
+    },
+    {
+      name: "Alex Johnson",
+      email: "alex.johnson@example.com",
+      avatar: "/placeholder.svg?height=40&width=40",
+    },
+    {
+      name: "Sarah Williams",
+      email: "sarah.williams@example.com",
+      avatar: "/placeholder.svg?height=40&width=40",
+    },
+  ];
+
+  return (
+    <Card>
+      <CardContent className="p-6">
+        <div className="space-y-6">
+          {/* Details section */}
+          <div className="space-y-4">
+            <h3 className="text-sm font-medium text-muted-foreground">
+              Details
+            </h3>
+
+            {/* Assignee */}
+            <div className="flex items-center justify-between">
+              <span className="text-sm">Assignee</span>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="flex items-center gap-2 h-auto p-1"
+                  >
+                    <Avatar className="h-6 w-6">
+                      <AvatarImage
+                        src={assignee.avatar || "/placeholder.svg"}
+                        alt={assignee.name}
+                      />
+                      <AvatarFallback>{assignee.name.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">{assignee.name}</span>
+                    <ChevronDown className="h-3 w-3 opacity-50" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  {teamMembers.map((member) => (
+                    <DropdownMenuItem
+                      key={member.email}
+                      onClick={() => setAssignee(member)}
+                      className="flex items-center gap-2"
+                    >
+                      <Avatar className="h-6 w-6">
+                        <AvatarImage
+                          src={member.avatar || "/placeholder.svg"}
+                          alt={member.name}
+                        />
+                        <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
+                      </Avatar>
+                      <span>{member.name}</span>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+
+            {/* Reporter */}
+            <div className="flex items-center justify-between">
+              <span className="text-sm">Reporter</span>
+              <div className="flex items-center gap-2">
+                <Avatar className="h-6 w-6">
+                  <AvatarImage
+                    src={ticket.reporter.avatar || "/placeholder.svg"}
+                    alt={ticket.reporter.name}
+                  />
+                  <AvatarFallback>
+                    {ticket.reporter.name.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
+                <span className="text-sm">{ticket.reporter.name}</span>
+              </div>
+            </div>
+
+            {/* Priority */}
+            <div className="flex items-center justify-between">
+              <span className="text-sm">Priority</span>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="flex items-center gap-2 h-auto p-1"
+                  >
+                    {priorityIcons[priority as keyof typeof priorityIcons]}
+                    <span className="text-sm">{priority}</span>
+                    <ChevronDown className="h-3 w-3 opacity-50" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  {priorityOptions.map((option) => (
+                    <DropdownMenuItem
+                      key={option}
+                      onClick={() => setPriority(option)}
+                      className="flex items-center gap-2"
+                    >
+                      {priorityIcons[option as keyof typeof priorityIcons]}
+                      <span>{option}</span>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+
+            {/* Type */}
+            <div className="flex items-center justify-between">
+              <span className="text-sm">Type</span>
+              <div className="flex items-center gap-2">
+                <span className="text-sm">{ticket.type}</span>
+              </div>
+            </div>
+
+            {/* Labels */}
+            <div className="space-y-2">
+              <span className="text-sm">Labels</span>
+              <div className="flex flex-wrap gap-2">
+                {ticket.labels.map((label) => (
+                  <Badge
+                    key={label}
+                    variant="outline"
+                    className="bg-slate-100 dark:bg-slate-800"
+                  >
+                    {label}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Dates section */}
+          <div className="space-y-4">
+            <h3 className="text-sm font-medium text-muted-foreground">Dates</h3>
+
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm">Created</span>
+              </div>
+              <span className="text-sm">
+                {new Date(ticket.created).toLocaleDateString()}
+              </span>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Clock className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm">Updated</span>
+              </div>
+              <span className="text-sm">
+                {new Date(ticket.updated).toLocaleDateString()}
+              </span>
+            </div>
+          </div>
+
+          {/* Planning section */}
+          <div className="space-y-4">
+            <h3 className="text-sm font-medium text-muted-foreground">
+              Planning
+            </h3>
+
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Flag className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm">Epic</span>
+              </div>
+              <span className="text-sm">{ticket.epic}</span>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <AlertCircle className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm">Sprint</span>
+              </div>
+              <span className="text-sm">{ticket.sprint}</span>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Hash className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm">Story Points</span>
+              </div>
+              <span className="text-sm">{ticket.storyPoints}</span>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Users className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm">Watchers</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="text-sm">{ticket.watchers}</span>
+                <Button variant="ghost" size="icon" className="h-6 w-6">
+                  <User className="h-3 w-3" />
+                  <span className="sr-only">Add watcher</span>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
