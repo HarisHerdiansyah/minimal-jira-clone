@@ -18,10 +18,7 @@ export default function Navbar() {
   return (
     <nav className="border-b bg-primary">
       <div className="flex h-16 items-center px-4 md:px-6 lg:px-12">
-        <div className="flex items-center gap-2 font-semibold">
-          <h1 className="text-xl font-semibold text-white">Dashboard</h1>
-        </div>
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-2 bg-white rounded-full">
           <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
             <DropdownMenuTrigger asChild>
               <Button
@@ -29,7 +26,7 @@ export default function Navbar() {
                 size="icon"
                 className="rounded-full cursor-pointer"
               >
-                <User className="h-5 w-5" color="white" />
+                <User className="h-5 w-5" color="black" />
                 <span className="sr-only">Toggle user menu</span>
               </Button>
             </DropdownMenuTrigger>

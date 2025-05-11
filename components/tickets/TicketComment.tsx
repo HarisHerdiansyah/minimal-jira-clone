@@ -54,34 +54,38 @@ export default function TicketComments({
   };
 
   return (
-    <Card>
+    <Card className="col-span-2">
       <CardHeader>
         <CardTitle>Comments</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-6">
-          {comments.map((comment) => (
-            <div key={comment.id} className="flex gap-4">
-              <Avatar className="h-10 w-10">
-                <AvatarImage
-                  src={comment.author.avatar || "/placeholder.svg"}
-                  alt={comment.author.name}
-                />
-                <AvatarFallback>{comment.author.name.charAt(0)}</AvatarFallback>
-              </Avatar>
-              <div className="flex-1 space-y-1">
-                <div className="flex items-center gap-2">
-                  <span className="font-medium">{comment.author.name}</span>
-                  <span className="text-xs text-muted-foreground">
-                    {formatDistanceToNow(new Date(comment.created), {
-                      addSuffix: true,
-                    })}
-                  </span>
+          <div className="max-h-[200px] overflow-auto space-y-6">
+            {comments.map((comment) => (
+              <div key={comment.id} className="flex gap-4">
+                <Avatar className="h-10 w-10">
+                  <AvatarImage
+                    src={comment.author.avatar || "/placeholder.svg"}
+                    alt={comment.author.name}
+                  />
+                  <AvatarFallback>
+                    {comment.author.name.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex-1 space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium">{comment.author.name}</span>
+                    <span className="text-xs text-muted-foreground">
+                      {formatDistanceToNow(new Date(comment.created), {
+                        addSuffix: true,
+                      })}
+                    </span>
+                  </div>
+                  <p className="text-sm">{comment.content}</p>
                 </div>
-                <p className="text-sm">{comment.content}</p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
 
           <div className="flex gap-4 pt-4">
             <Avatar className="h-10 w-10">

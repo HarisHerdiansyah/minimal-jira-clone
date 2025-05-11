@@ -87,15 +87,9 @@ export default function TicketSidebar({ ticket }: TicketSidebarProps) {
 
   return (
     <Card>
-      <CardContent className="p-6">
+      <CardContent>
         <div className="space-y-6">
-          {/* Details section */}
           <div className="space-y-4">
-            <h3 className="text-sm font-medium text-muted-foreground">
-              Details
-            </h3>
-
-            {/* Assignee */}
             <div className="flex items-center justify-between">
               <span className="text-sm">Assignee</span>
               <DropdownMenu>
@@ -103,7 +97,7 @@ export default function TicketSidebar({ ticket }: TicketSidebarProps) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="flex items-center gap-2 h-auto p-1"
+                    className="flex items-center gap-2 h-auto p-1 cursor-pointer"
                   >
                     <Avatar className="h-6 w-6">
                       <AvatarImage
@@ -121,7 +115,7 @@ export default function TicketSidebar({ ticket }: TicketSidebarProps) {
                     <DropdownMenuItem
                       key={member.email}
                       onClick={() => setAssignee(member)}
-                      className="flex items-center gap-2"
+                      className="flex items-center gap-2 cursor-pointer"
                     >
                       <Avatar className="h-6 w-6">
                         <AvatarImage
@@ -136,8 +130,6 @@ export default function TicketSidebar({ ticket }: TicketSidebarProps) {
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
-
-            {/* Reporter */}
             <div className="flex items-center justify-between">
               <span className="text-sm">Reporter</span>
               <div className="flex items-center gap-2">
@@ -153,8 +145,6 @@ export default function TicketSidebar({ ticket }: TicketSidebarProps) {
                 <span className="text-sm">{ticket.reporter.name}</span>
               </div>
             </div>
-
-            {/* Priority */}
             <div className="flex items-center justify-between">
               <span className="text-sm">Priority</span>
               <DropdownMenu>
@@ -162,7 +152,7 @@ export default function TicketSidebar({ ticket }: TicketSidebarProps) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="flex items-center gap-2 h-auto p-1"
+                    className="flex items-center gap-2 h-auto p-1 cursor-pointer"
                   >
                     {priorityIcons[priority as keyof typeof priorityIcons]}
                     <span className="text-sm">{priority}</span>
@@ -174,7 +164,7 @@ export default function TicketSidebar({ ticket }: TicketSidebarProps) {
                     <DropdownMenuItem
                       key={option}
                       onClick={() => setPriority(option)}
-                      className="flex items-center gap-2"
+                      className="flex items-center gap-2 cursor-pointer"
                     >
                       {priorityIcons[option as keyof typeof priorityIcons]}
                       <span>{option}</span>
@@ -183,36 +173,9 @@ export default function TicketSidebar({ ticket }: TicketSidebarProps) {
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
-
-            {/* Type */}
-            <div className="flex items-center justify-between">
-              <span className="text-sm">Type</span>
-              <div className="flex items-center gap-2">
-                <span className="text-sm">{ticket.type}</span>
-              </div>
-            </div>
-
-            {/* Labels */}
-            <div className="space-y-2">
-              <span className="text-sm">Labels</span>
-              <div className="flex flex-wrap gap-2">
-                {ticket.labels.map((label) => (
-                  <Badge
-                    key={label}
-                    variant="outline"
-                    className="bg-slate-100 dark:bg-slate-800"
-                  >
-                    {label}
-                  </Badge>
-                ))}
-              </div>
-            </div>
           </div>
-
-          {/* Dates section */}
           <div className="space-y-4">
             <h3 className="text-sm font-medium text-muted-foreground">Dates</h3>
-
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Calendar className="h-4 w-4 text-muted-foreground" />
@@ -231,51 +194,6 @@ export default function TicketSidebar({ ticket }: TicketSidebarProps) {
               <span className="text-sm">
                 {new Date(ticket.updated).toLocaleDateString()}
               </span>
-            </div>
-          </div>
-
-          {/* Planning section */}
-          <div className="space-y-4">
-            <h3 className="text-sm font-medium text-muted-foreground">
-              Planning
-            </h3>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Flag className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm">Epic</span>
-              </div>
-              <span className="text-sm">{ticket.epic}</span>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <AlertCircle className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm">Sprint</span>
-              </div>
-              <span className="text-sm">{ticket.sprint}</span>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Hash className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm">Story Points</span>
-              </div>
-              <span className="text-sm">{ticket.storyPoints}</span>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Users className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm">Watchers</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <span className="text-sm">{ticket.watchers}</span>
-                <Button variant="ghost" size="icon" className="h-6 w-6">
-                  <User className="h-3 w-3" />
-                  <span className="sr-only">Add watcher</span>
-                </Button>
-              </div>
             </div>
           </div>
         </div>

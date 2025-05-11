@@ -1,11 +1,6 @@
-import {
-  TicketComment,
-  TicketDescription,
-  TicketHeader,
-  TicketSidebar,
-} from "@/components/tickets";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Separator } from "@/components/ui/separator";
+import { TicketComment, TicketSidebar } from "@/components/tickets";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ChevronLeft } from "lucide-react";
 
 const ticketData = {
   id: "PROJ-123",
@@ -100,68 +95,35 @@ export default function TicketDetailPage({
 }: {
   params: { id: string };
 }) {
-  const ticket = ticketData;
-
   return (
-    <main className="flex-1 bg-slate-50 dark:bg-slate-900">
-      <div className="container py-6">
-        <TicketHeader ticket={ticket} />
-
-        <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3">
-          <div className="md:col-span-2">
-            <Tabs defaultValue="description" className="w-full">
-              <TabsList className="w-full justify-start">
-                <TabsTrigger value="description">Description</TabsTrigger>
-                <TabsTrigger value="activity">Activity</TabsTrigger>
-                <TabsTrigger value="attachments">Attachments</TabsTrigger>
-              </TabsList>
-              <TabsContent value="description" className="mt-4">
-                <TicketDescription description={ticket.description} />
-                <Separator className="my-6" />
-                <TicketComment comments={ticket.comments} />
-              </TabsContent>
-              <TabsContent value="activity">
-                <div className="rounded-lg border bg-card p-6 shadow-sm">
-                  <h3 className="text-lg font-medium">Activity Log</h3>
-                  <p className="text-sm text-muted-foreground">
-                    This would show a chronological history of all changes and
-                    updates to this ticket.
-                  </p>
-                </div>
-              </TabsContent>
-              <TabsContent value="attachments">
-                <div className="rounded-lg border bg-card p-6 shadow-sm">
-                  <h3 className="text-lg font-medium">Attachments</h3>
-                  <ul className="mt-4 space-y-3">
-                    {ticket.attachments.map((attachment) => (
-                      <li
-                        key={attachment.name}
-                        className="flex items-center justify-between rounded-md border p-3"
-                      >
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm font-medium">
-                            {attachment.name}
-                          </span>
-                          <span className="text-xs text-muted-foreground">
-                            ({attachment.size})
-                          </span>
-                        </div>
-                        <span className="text-xs text-muted-foreground">
-                          {new Date(attachment.uploaded).toLocaleDateString()}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </TabsContent>
-            </Tabs>
-          </div>
-
-          <div className="md:col-span-1">
-            <TicketSidebar ticket={ticket} />
-          </div>
-        </div>
+    <div className="px-4 md:px-6 lg:px-12 py-6">
+      <div className="flex gap-2 mb-3 cursor-pointer">
+        <ChevronLeft className="text-muted-foreground" />
+        <p className="text-muted-foreground hover:underline">Back to Board</p>
       </div>
-    </main>
+      <h1 className="text-3xl font-semibold">MEA Project</h1>
+      <div className="my-16 grid grid-cols-3 gap-4">
+        <Card className="col-span-2">
+          <CardHeader>
+            <CardTitle>
+              <h2 className="text-2xl font-semibold">
+                [MEP-123] Project Subscription API
+              </h2>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <h3>Description:</h3>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione
+              et molestias tempora nam repellat doloremque illo aperiam. Odio,
+              praesentium dignissimos? Repudiandae assumenda distinctio
+              voluptate cupiditate rerum voluptatum provident, delectus odit?
+            </p>
+          </CardContent>
+        </Card>
+        <TicketSidebar ticket={ticketData} />
+        <TicketComment comments={ticketData.comments} />
+      </div>
+    </div>
   );
 }

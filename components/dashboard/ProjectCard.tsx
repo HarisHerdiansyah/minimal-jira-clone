@@ -46,11 +46,6 @@ export default function ProjectCard({
           </div>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground line-clamp-2">
-            {description}
-          </p>
-        </CardContent>
-        <CardFooter className="border-t bg-muted/50 px-6 py-3">
           <div className="flex items-center gap-4 text-sm text-muted-foreground">
             <div className="flex items-center gap-1">
               <Ticket className="h-4 w-4" />
@@ -61,7 +56,7 @@ export default function ProjectCard({
               <span>{totalMembers} members</span>
             </div>
           </div>
-        </CardFooter>
+        </CardContent>
       </Link>
     </Card>
   );

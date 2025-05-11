@@ -1,4 +1,4 @@
-import { ProjectCard } from "@/components/dashboard";
+import { ProjectCard, ProjectDialog } from "@/components/dashboard";
 
 const projects = [
   {
@@ -59,15 +59,12 @@ const projects = [
 
 export default function DashboardPage() {
   return (
-    <main className="flex-1 p-6">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold">Projects Dashboard</h1>
-        <p className="text-muted-foreground">
-          Manage and monitor your active projects
-        </p>
+    <div className="px-4 md:px-6 lg:px-12 py-6">
+      <div className="flex justify-between items-center">
+        <h1 className="text-3xl font-semibold">Dashboard</h1>
+        <ProjectDialog />
       </div>
-
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mt-6">
         {projects.map((project) => (
           <ProjectCard
             key={project.id}
@@ -80,6 +77,6 @@ export default function DashboardPage() {
           />
         ))}
       </div>
-    </main>
+    </div>
   );
 }
