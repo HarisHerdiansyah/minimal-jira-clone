@@ -5,7 +5,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { format } from "date-fns";
-import { CalendarIcon, Loader2 } from "lucide-react";
+import {
+  CalendarIcon,
+  Loader2,
+  ChevronsUp,
+  ChevronUp,
+  Minus,
+  ChevronDown,
+} from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -21,7 +28,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -159,9 +165,7 @@ export default function TicketDialog() {
           >
             {/* Ticket Code (Auto-generated) */}
             <div className="grid grid-cols-4 items-center gap-4">
-              <label className="text-sm font-medium text-right">
-                Ticket Code
-              </label>
+              <label className="text-sm font-medium">Ticket Code</label>
               <div className="col-span-3">
                 <Input value={ticketCode} disabled className="bg-muted" />
               </div>
@@ -269,10 +273,22 @@ export default function TicketDialog() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="Low">Low</SelectItem>
-                        <SelectItem value="Medium">Medium</SelectItem>
-                        <SelectItem value="High">High</SelectItem>
-                        <SelectItem value="Urgent">Urgent</SelectItem>
+                        <SelectItem value="Critical">
+                          <ChevronsUp className="h-4 w-4 text-red-500" />
+                          Critical
+                        </SelectItem>
+                        <SelectItem value="High">
+                          <ChevronUp className="h-4 w-4 text-orange-500" />
+                          High
+                        </SelectItem>
+                        <SelectItem value="Medium">
+                          <Minus className="h-4 w-4 text-yellow-500" />
+                          Medium
+                        </SelectItem>
+                        <SelectItem value="Low">
+                          <ChevronDown className="h-4 w-4 text-blue-500" />
+                          Low
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />

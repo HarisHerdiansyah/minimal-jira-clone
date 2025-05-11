@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -12,15 +11,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-  AlertCircle,
-  ArrowUp,
   Calendar,
   ChevronDown,
+  ChevronsUp,
+  ChevronUp,
   Clock,
-  Flag,
-  Hash,
-  User,
-  Users,
+  Minus,
 } from "lucide-react";
 
 interface TicketSidebarProps {
@@ -52,14 +48,13 @@ export default function TicketSidebar({ ticket }: TicketSidebarProps) {
   const [assignee, setAssignee] = useState(ticket.assignee);
 
   const priorityIcons = {
-    Highest: <ArrowUp className="h-4 w-4 text-red-500" />,
-    High: <ArrowUp className="h-4 w-4 text-orange-500" />,
-    Medium: <ArrowUp className="h-4 w-4 text-yellow-500 rotate-90" />,
-    Low: <ArrowUp className="h-4 w-4 text-blue-500 rotate-180" />,
-    Lowest: <ArrowUp className="h-4 w-4 text-slate-500 rotate-180" />,
+    Critical: <ChevronsUp className="h-4 w-4 text-red-500" />,
+    High: <ChevronUp className="h-4 w-4 text-orange-500" />,
+    Medium: <Minus className="h-4 w-4 text-yellow-500" />,
+    Low: <ChevronDown className="h-4 w-4 text-blue-500" />,
   };
 
-  const priorityOptions = ["Highest", "High", "Medium", "Low", "Lowest"];
+  const priorityOptions = ["Critical", "High", "Medium", "Low"];
 
   // Mock team members for assignee dropdown
   const teamMembers = [

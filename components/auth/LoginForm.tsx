@@ -115,11 +115,6 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
           </form>
         </Form>
       </CardContent>
-      <CardFooter className="flex justify-center">
-        <Button variant="link" className="px-0 text-sm" onClick={() => {}}>
-          Forgot your password?
-        </Button>
-      </CardFooter>
     </Card>
   );
 }

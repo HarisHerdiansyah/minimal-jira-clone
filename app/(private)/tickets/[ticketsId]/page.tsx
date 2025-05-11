@@ -1,6 +1,5 @@
-import { TicketComment, TicketSidebar } from "@/components/tickets";
+import { GoBack, TicketComment, TicketSidebar } from "@/components/tickets";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronLeft } from "lucide-react";
 
 const ticketData = {
   id: "PROJ-123",
@@ -97,10 +96,7 @@ export default function TicketDetailPage({
 }) {
   return (
     <div className="px-4 md:px-6 lg:px-12 py-6">
-      <div className="flex gap-2 mb-3 cursor-pointer">
-        <ChevronLeft className="text-muted-foreground" />
-        <p className="text-muted-foreground hover:underline">Back to Board</p>
-      </div>
+      <GoBack />
       <h1 className="text-3xl font-semibold">MEA Project</h1>
       <div className="my-16 grid grid-cols-3 gap-4">
         <Card className="col-span-2">

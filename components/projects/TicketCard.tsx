@@ -1,6 +1,7 @@
 "use client";
 
 import { useDraggable } from "@dnd-kit/core";
+import Link from "next/link";
 
 type TicketCard = {
   id: string;
@@ -32,7 +33,9 @@ export default function TicketCard({ id, title, statusId }: TicketCard) {
       {...listeners}
       {...attributes}
     >
-      <h3 className="line-clamp-2 hover:underline cursor-pointer">{title}</h3>
+      <Link href={`/tickets/${id}`}>
+        <h3 className="line-clamp-2 hover:underline cursor-pointer">{title}</h3>
+      </Link>
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-2">
           <p>Assignee:</p>

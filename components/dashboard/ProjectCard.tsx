@@ -2,7 +2,6 @@ import Link from "next/link";
 import {
   Card,
   CardContent,
-  CardFooter,
   CardHeader,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -20,7 +19,6 @@ interface ProjectCardProps {
 export default function ProjectCard({
   id,
   title,
-  description,
   totalTickets,
   totalMembers,
   status = "active",

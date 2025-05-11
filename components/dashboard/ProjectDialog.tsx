@@ -155,7 +155,7 @@ export default function ProjectDialog() {
             className="space-y-6 py-4"
           >
             <div className="grid grid-cols-4 items-center gap-4">
-              <label className="text-sm font-medium text-right">
+              <label className="text-sm font-medium">
                 Project Code
               </label>
               <div className="col-span-3">
