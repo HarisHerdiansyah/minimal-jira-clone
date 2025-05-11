@@ -95,8 +95,6 @@ export default function ProjectDialog() {
     return `${prefix}-${randomNum}`;
   };
 
-  const [ticketCode] = useState(generateTicketCode());
-
   const form = useForm<TicketFormValues>({
     resolver: zodResolver(ticketFormSchema),
     defaultValues: {
@@ -117,7 +115,7 @@ export default function ProjectDialog() {
       );
 
       const ticketData = {
-        code: ticketCode,
+        code: "",
         ...data,
         assignee,
         createdAt: new Date().toISOString(),
@@ -156,17 +154,15 @@ export default function ProjectDialog() {
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-6 py-4"
           >
-            {/* Ticket Code (Auto-generated) */}
             <div className="grid grid-cols-4 items-center gap-4">
               <label className="text-sm font-medium text-right">
                 Project Code
               </label>
               <div className="col-span-3">
-                <Input value={ticketCode} className="bg-muted" />
+                <Input type="text" placeholder="Enter Code" />
               </div>
             </div>
 
-            {/* Title */}
             <FormField
               control={form.control}
               name="title"
